@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyledBtn,
@@ -7,27 +7,31 @@ import {
   StyledLabel,
 } from './ContactForm.styled';
 
-const ContactForm = ({ onSubmit, phoneInputId, nameInputId }) => {
+const ContactForm = ({ onSubmit }) => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit(e.target.elements.name.value, e.target.elements.number.value);
+    e.target.reset();
+  };
+
   return (
-    <StyledForm onSubmit={onSubmit}>
-      <StyledLabel htmlFor={nameInputId}>
+    <StyledForm onSubmit={handleSubmit}>
+      <StyledLabel>
         Name
         <StyledInput
           type="text"
           name="name"
-          id={nameInputId}
           pattern="[A-z]{2,9} [A-z]{2,9}"
           title="latin chars, 
           format:Name Surname"
           required
         />
       </StyledLabel>
-      <StyledLabel htmlFor={phoneInputId}>
+      <StyledLabel>
         Number
         <StyledInput
           type="tel"
           name="number"
-          id={phoneInputId}
           pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
           title="123-45-67"
           required
@@ -41,8 +45,6 @@ const ContactForm = ({ onSubmit, phoneInputId, nameInputId }) => {
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func,
-  phoneInputId: PropTypes.string,
-  nameInputId: PropTypes.string,
 };
 
 export default ContactForm;

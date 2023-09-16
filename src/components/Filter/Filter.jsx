@@ -6,7 +6,7 @@ const Filter = ({ onChange }) => {
   return (
     <>
       <StyledText>Find contacts by name or number</StyledText>
-      <input on onChange={onChange} type="text" />
+      <input onChange={onChange} type="text" />
     </>
   );
 };
